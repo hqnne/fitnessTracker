@@ -1,7 +1,6 @@
 # OPTION A - Smart Fitness Session Analyzer
 
-Name: Hanne Austad
-Student number: 375093
+Hanne Austad, 375093
 
 This repository contains a program that takes data from fitness trackers, analyzes it, validates it and and compares it with certain reference values, and finally classifies each session into a specific category (resting, moderate activity, high activity, recovery, insufficient data).
 
@@ -18,42 +17,42 @@ This repository contains a program that takes data from fitness trackers, analyz
 
 The program uses 4 classes, and these are stored under `models.py`:
 
-1. Person (encompasses participants and reference values - resting HR, skin response, temp)
-2. Measurement (recorded observation)
-3. WorkoutSession (one Person and Measurement objects)
-4. SessionAnalysis (validates and summarizes the recorded sessions, and returns a result dict)
+1. `Person` (encompasses participants and reference values - resting HR, skin response, temp)
+2. `Measurement` (recorded observation)
+3. `WorkoutSession` (one Person and Measurement objects)
+4. `SessionAnalysis` (validates and summarizes the recorded sessions, and returns a result dict)
 
-Measurement.from_dict is a class method that builds a Measurement object straight from one of the generators dictionaries.It's a class method instead of a regular one because theres no existing object to call on it yet. It's the way a Measurement gets created in the first place.
+`Measurement.from_dict` is a class method that builds a `Measurement` object straight from one of the generators dictionaries.It's a class method instead of a regular one because theres no existing object to call on it yet. It's the way a `Measurement` gets created in the first place.
 
 ## Usage of composition and encapsulation
 
 Composition was used instead of inheritance because the classes carry out different functions and do not share any behaviour. As such, composition was preferable in this program.
 
-In this repo composition takes shape in the form of WorkoutSession containing a Person and its measurements, while SessionAnalysis contains a WorkoutSession. In terms of encapsulation, Person.\_baseline_heart_rate is set through a property that rejects non positive values. WorkOutSession.\_entries is private, and the entries property returns a copy.
+In this repo composition takes shape in the form of `WorkoutSession` containing a `Person` and its measurements, while `SessionAnalysis` contains a `WorkoutSession`. In terms of encapsulation, `Person._baseline_heart_rate` is set through a property that rejects non positive values. `WorkOutSession._entries` is private, and the `entries` property returns a copy.
 
 ## Functions explained
 
 The functions are stored under `analysis.py`, and their individual purpose are as follows:
 
-- check_entry: checks recorded measurement for missing/invalid values/low signal quality, and returns a list of potential problems
-- calculate_mean: returns the avg of a list of numbers
-- summarize: returns the avg, min and max of a list of numbers
-- compare_to_baseline: returns how far a value is from participants reference value
-- check_recovery: checks whether HR or activity both fell from the start of session to the end
-- classify_session: applies the rules and returns a label & explanation
-- write_report: prints ressults dict as a report
+- `check_entry`: checks recorded measurement for missing/invalid values/low signal quality, and returns a list of potential problems
+- `calculate_mean`: returns the avg of a list of numbers
+- `summarize`: returns the avg, min and max of a list of numbers
+- `compare_to_baseline`: returns how far a value is from participants reference value
+- `check_recovery`: checks whether HR or activity both fell from the start of session to the end
+- `classify_session`: applies the rules and returns a label & explanation
+- `write_report`: prints ressults dict as a report
 
 ## Data used
 
-Measurements are stored as a list in WorkOutSession.\_entries. Dictionaries are used for the input (LIMITS, raw generator data) and the output (summaries, comparison, rejected, and final result dict returned by SessionAnalysis.run, which write_report then prints).
+Measurements are stored as a list in `WorkOutSession._entries`. Dictionaries are used for the input (`LIMITS`, raw generator data) and the output (`summaries`, `comparison`, `rejected`, and final result dict returned by `SessionAnalysis.run`, which `write_report` then prints).
 
 ## Rules and other key facts
 
-The ranges listed in DATA_DESCRIPTION.md are used to determines wheter a measurement is rejected or not. If it falls outside of that range, the measurement is deemed invalid. Measurements are also rejected if they are missing values or if the signal quality is below 0.6.
+The ranges listed in `DATA_DESCRIPTION.md` are used to determine whether a measurement is rejected or not. If it falls outside of that range, the measurement is deemed invalid. Measurements are also rejected if they are missing values or if the signal quality is below 0.6.
 
 The session analyzer classifies the sessions using this rulebook:
 
-1. Insufficienet data: the session has less tthan 6 usable measurements
+1. Insufficient data: the session has less tthan 6 usable measurements
 2. Recovery: heart rate drops by 15 bpm (or more) and activity drosp by 0.2 (or more), from first third of sessino to last third
 3. Resting: avg hearte rate is less than 15 bpm above resting reference
 4. Moderate activity: avg heart rate is less than 43 bpm above resting reference (and rule 3 didnt already apply)
