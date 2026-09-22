@@ -7,16 +7,16 @@ This repository contains a program that takes data from fitness trackers, analyz
 
 ## File tree
 
-- "main.py" runs all five scenarios (resting, moderate, high, recovery, insufficient) and prints a report for each
-- "models.py" contains the classes
-- "analysis.py" contains functions used for validation, calculations and reports
-- "sample_data.py" creates the five scenarios using the provided generator
-- "tests.py" contains tests
-- "data_generator.py", "example_usage.py", "DATA_description.md" are the student starter files from Canvas (no changes have been made to these)
+- `main.py` runs all five scenarios (resting, moderate, high, recovery, insufficient) and prints a report for each
+- `models.py` contains the classes
+- `analysis.py` contains functions used for validation, calculations and reports
+- `sample_data.py` creates the five scenarios using the provided generator
+- `tests.py` contains tests
+- `data_generator.py`, `example_usage.py`, `DATA_description.md` are the student starter files from Canvas (no changes have been made to these)
 
 ## Classes explained
 
-The program uses 4 classes, and these are stored under "models.py":
+The program uses 4 classes, and these are stored under `models.py`:
 
 1. Person (encompasses participants and reference values - resting HR, skin response, temp)
 2. Measurement (recorded observation)
@@ -33,7 +33,7 @@ In this repo composition takes shape in the form of WorkoutSession containing a 
 
 ## Functions explained
 
-The functions are stored under "analysis.py", and their individual purpose are as follows:
+The functions are stored under `analysis.py`, and their individual purpose are as follows:
 
 - check_entry: checks recorded measurement for missing/invalid values/low signal quality, and returns a list of potential problems
 - calculate_mean: returns the avg of a list of numbers
@@ -63,25 +63,29 @@ The 5 scenarios cover normal (resting, moderate, high), unusual (recovery), and 
 
 ## Running the program
 
-- git clone https://github.com/hqnne/fitnessTracker.git
-- cd fitnessTracker
-- python3 main.py
+```bash
+git clone https://github.com/hqnne/fitnessTracker.git
+cd fitnessTracker
+python3 main.py
+```
 
 ## Example output
 
-# Scenario: high_activity
-
+```
+Scenario: high_activity
+==================================================
 participant P003
 usable entries: 12 of 12
 heart_rate: average 135.67, min 123, max 150
-difference from reference: 57.67
+  difference from reference: 57.67
 skin_response: average 1.8, min 1.3, max 2.1
-difference from reference: 0.63
+  difference from reference: 0.63
 temperature: average 33.34, min 33.17, max 33.65
-difference from reference: 0.58
+  difference from reference: 0.58
 activity_level: average 0.8, min 0.69, max 0.91
 Classification: high activity
 Why: average heart rate differs from resting reference by 57.67 bpm.
+```
 
 ## Identified limitations
 
