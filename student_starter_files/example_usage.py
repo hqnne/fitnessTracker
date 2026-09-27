@@ -1,6 +1,6 @@
 """Minimal demonstration of the instructor-supplied fitness data generator."""
 
-from data_generator import available_scenarios, generate_fitness_data
+from student_starter_files.data_generator import available_scenarios, generate_fitness_data
 
 
 def main():

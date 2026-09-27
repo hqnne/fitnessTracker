@@ -1,4 +1,4 @@
-from data_generator import generate_fitness_data
+from student_starter_files.data_generator import generate_fitness_data
 from models import Person, Measurement, WorkoutSession
 
 SCENARIOS = ["resting", "moderate_activity", "high_activity", "recovery", "poor_quality"]
