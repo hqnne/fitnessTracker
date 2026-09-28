@@ -41,11 +41,12 @@ class Measurement:
 
 #composition example: holds one Person & a list of Measurements
 class WorkoutSession:
-    def __init__(self, person):
+    def __init__(self, session_id, person):
+        self.session_id = session_id
         self.person = person
         self._entries = []
 
-# returns copy so the private list cant be changed from the outside 
+# returns a copy so the private list cant be changed from the outside 
     @property
     def entries(self):
         return self._entries.copy()
@@ -97,7 +98,9 @@ class SessionAnalysis:
             recovering = check_recovery(values["heart_rate"], values["activity_level"])
 
         label, explanation = classify_session(len(usable), len(self.session.entries), hr_difference, recovering)
+        #result dictionary
         return {
+            "session_id": self.session.session_id,
             "person_id": person.person_id,
             "total": len(self.session.entries),
             "usable": len(usable),

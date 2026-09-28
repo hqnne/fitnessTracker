@@ -70,16 +70,21 @@ def classify_session(usable, total, hr_difference, recovering):
     else:
         return "high activity", text
 
+# constructing the report
+def build_report_text(result):
+    lines = []
+    lines.append("=" * 50)
+    lines.append(f"session {result['session_id']} - participant {result['person_id']}")
+    lines.append(f"usable entries: {result['usable']} of {result['total']}")
+    for timestamp, problems in result["rejected"].items():
+        lines.append(f" rejected entry {timestamp}: {', '.join(problems)}")
+    for name, summary in result["summaries"].items():
+        lines.append(f"{name}: average {summary['average']}, min {summary['min']}, max {summary['max']}")
+        if name in result["comparison"]:
+            lines.append(f"  difference from reference: {result['comparison'][name]}")
+    lines.append(f"classification: {result['classification']}")
+    lines.append(f"why: {result['explanation']}")
+    return "\n".join(lines)
 
 def write_report(result):
-    print("=" * 50)
-    print(f"participant {result['person_id']}")
-    print(f"usable entries: {result['usable']} of {result['total']}")
-    for timestamp, problems in result["rejected"].items():
-        print(f" rejected entry {timestamp}: {', '.join(problems)}")
-    for name, summary in result["summaries"].items():
-        print(f"{name}: average {summary['average']}, min {summary['min']}, max {summary['max']}")
-        if name in result["comparison"]:
-            print(f"  difference from reference: {result['comparison'][name]}")
-    print(f"Classification: {result['classification']}")
-    print(f"Why: {result['explanation']}")
+    print(build_report_text(result))
