@@ -1,7 +1,7 @@
-from analysis import check_entry, check_recovery, classify_session, compare_to_baseline, summarize
-from models import Measurement, Person
+from fitnessAnalyzer.analysis import check_entry, check_recovery, classify_session, compare_to_baseline, summarize
+from fitnessAnalyzer.models import Measurement, Person
 from sample_data import build_session
-from models import SessionAnalysis
+from fitnessAnalyzer.models import SessionAnalysis
 
 
 def test_check_entry():

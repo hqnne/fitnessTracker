@@ -1,5 +1,5 @@
-from analysis import write_report
-from models import SessionAnalysis
+from fitnessAnalyzer.analysis import write_report
+from fitnessAnalyzer.models import SessionAnalysis
 from sample_data import build_all_sessions
 
 

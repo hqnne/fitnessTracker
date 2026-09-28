@@ -1,4 +1,4 @@
-from analysis import (
+from fitnessAnalyzer.analysis import (
     MIN_USABLE, check_entry, check_recovery,
     classify_session, compare_to_baseline, summarize,
 )
