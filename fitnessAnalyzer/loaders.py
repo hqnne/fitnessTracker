@@ -1,15 +1,14 @@
 import csv
 import re
 
-from fitness_analyzer.exceptions import InvalidIdentifierError, InvalidRecordError
-from fitness_analyzer.models import Person, Measurement, WorkoutSession
-from fitness_analyzer.analysis import check_entry
+from fitnessAnalyzer.exceptions import InvalidIdentifierError, InvalidRecordError
+from fitnessAnalyzer.models import Person, Measurement, WorkoutSession
+from fitnessAnalyzer.analysis import check_entry
 
 PARTICIPANT_ID_PATTERN = re.compile(r"^P\d{3}$")
 SESSION_ID_PATTERN = re.compile(r"^FIT-\d{4}-\d{3}$")
 
 NUMBER_FIELDS = ["heart_rate", "skin_response", "temperature", "activity_level", "signal_quality"]
-
 
 # checks value against regex pattern, raise exceptions and block improper data ⛔️
 def check_pattern(value, pattern, label):
@@ -17,7 +16,6 @@ def check_pattern(value, pattern, label):
         raise InvalidRecordError(label, f"{label} is missing")
     if not pattern.fullmatch(value):
         raise InvalidIdentifierError(label, f"{label} '{value}' has an invalid format")
-
 
 # turns one raw csv string into a number, raises InvalidRecordError instead of crashing on bad data
 def convert_field(value, field_name):
@@ -30,13 +28,11 @@ def convert_field(value, field_name):
     except ValueError:
         raise InvalidRecordError(field_name, f"{field_name} value '{value}' is not a number")
 
-
 # works out which field a check_entry problem is about , so a rejected row can name that field
 def field_from_problem(problem):
     if problem.startswith("low signal quality"):
         return "signal_quality"
     return problem.split()[0]
-
 
 #reads participants.csv ++ returns a dict of participant_id -> Person
 def load_participants(path):
@@ -53,7 +49,6 @@ def load_participants(path):
             )
             participants[person.person_id] = person
     return participants
-
 
 # reads a session csv file. returns a dict of session_id -> WorkoutSession, ++ a list of rejected rows
 def load_sessions(path, participants, source_name):
