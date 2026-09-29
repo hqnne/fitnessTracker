@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 
-from fitnessAnalyzer.analysis import build_report_text
+from fitness_analyzer.analysis import build_report_text
 
 SUMMARY_FIELDS = ["session_id", "participant_id", "total", "usable", "classification"]
 

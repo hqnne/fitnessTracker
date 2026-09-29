@@ -1,11 +1,11 @@
 from pathlib import Path
-from fitnessAnalyzer.analysis import check_entry, check_recovery, classify_session, compare_to_baseline, summarize
-from fitnessAnalyzer.exceptions import InvalidIdentifierError, InvalidRecordError
-from fitnessAnalyzer.loaders import (
+from fitness_analyzer.analysis import check_entry, check_recovery, classify_session, compare_to_baseline, summarize
+from fitness_analyzer.exceptions import InvalidIdentifierError, InvalidRecordError
+from fitness_analyzer.loaders import (
     check_pattern, convert_field, load_participants, load_sessions,
     PARTICIPANT_ID_PATTERN, SESSION_ID_PATTERN,
 )
-from fitnessAnalyzer.models import Measurement, Person, SessionAnalysis, WorkoutSession
+from fitness_analyzer.models import Measurement, Person, SessionAnalysis, WorkoutSession
 
 DATA_DIR = Path("data")
 

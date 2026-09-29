@@ -1,16 +1,16 @@
 import csv
 import re
 
-from fitnessAnalyzer.exceptions import InvalidIdentifierError, InvalidRecordError
-from fitnessAnalyzer.models import Person, Measurement, WorkoutSession
-from fitnessAnalyzer.analysis import check_entry
+from fitness_analyzer.exceptions import InvalidIdentifierError, InvalidRecordError
+from fitness_analyzer.models import Person, Measurement, WorkoutSession
+from fitness_analyzer.analysis import check_entry
 
 PARTICIPANT_ID_PATTERN = re.compile(r"^P\d{3}$")
 SESSION_ID_PATTERN = re.compile(r"^FIT-\d{4}-\d{3}$")
 
 NUMBER_FIELDS = ["heart_rate", "skin_response", "temperature", "activity_level", "signal_quality"]
 
-# checks value against regex pattern, raise exceptions and block improper data ⛔️
+# checks value against regex pattern, raise exceptions and block improper data
 def check_pattern(value, pattern, label):
     if value is None:
         raise InvalidRecordError(label, f"{label} is missing")

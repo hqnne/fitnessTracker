@@ -1,9 +1,9 @@
 import argparse
 from pathlib import Path
 
-from fitnessAnalyzer.loaders import load_participants, load_sessions
-from fitnessAnalyzer.models import SessionAnalysis
-from fitnessAnalyzer.reports import ensure_output_dir, write_summary_csv, write_report_txt, write_rejected_txt
+from fitness_analyzer.loaders import load_participants, load_sessions
+from fitness_analyzer.models import SessionAnalysis
+from fitness_analyzer.reports import ensure_output_dir, write_summary_csv, write_report_txt, write_rejected_txt
 
 
 def parse_args():
