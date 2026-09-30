@@ -22,7 +22,7 @@ def convert_field(value, field_name):
     if value is None or value == "":
         raise InvalidRecordError(field_name, f"{field_name} is missing")
     try:
-        if field_name == "timestamp":
+        if field_name == "timestamp": #timestamp is a whole number, but everything else can have decimals.
             return int(value)
         return float(value)
     except ValueError:
@@ -60,7 +60,7 @@ def load_sessions(path, participants, source_name):
         try:
             for row_number, row in enumerate(reader, start=2):  # (row1 is the header)
                 try:
-                    if None in row:
+                    if None in row: # DictReader dumps any extra columns under the key None, so this catches rows that are too long
                         raise InvalidRecordError("row", "row has more columns than expected")
 
                     check_pattern(row.get("session_id"), SESSION_ID_PATTERN, "session_id")
@@ -99,7 +99,8 @@ def load_sessions(path, participants, source_name):
                     rejected.append({
                         "file": source_name, "row": row_number, "field": error.field, "reason": str(error),
                     })
-        except csv.Error as error:
+        # catches broken CSV file, not a bad row
+        except csv.Error as error: 
             rejected.append({"file": source_name, "row": "-", "field": "-", "reason": f"could not read the rest of the file: {error}"})
 
     return sessions, rejected
